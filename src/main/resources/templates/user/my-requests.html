@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Book Requests</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* Container class for consistent page layout */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #00acc1;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            color: #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 200px;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(135deg, #00acc1, #00838f);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+
+        .btn-menu {
+            background: #6c757d;
+        }
+
+        .btn-menu:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Your Book Requests</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book : ${bookRequests}">
+                <td th:text="${book.title}">Sample Title</td>
+                <td th:text="${book.author?.name ?: 'Unknown Author'}">Unknown Author</td>
+                <td th:text="${book.bookCategory?.name ?: 'No Category'}">No Category</td>
+                <td>
+                    <form th:action="@{/user/book-requests/cancel}" method="post">
+                        <input type="hidden" name="bookId" th:value="${book.bookId}" />
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(bookRequests)}">
+                <td colspan="4">No book requests available.</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/user/dashboard" class="btn btn-menu">Back to Menu</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* Container class for consistent page layout */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #00acc1;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            color: #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #444;
+            border: 1px solid #666;
+            border-radius: 4px;
+            color: #ddd;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 200px;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(135deg, #00acc1, #00838f);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #00acc1, #00838f);
+        }
+
+        .btn-red {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Edit User Profile</h1>
+    <form th:action="@{/user/profile/save}" th:object="${userProfile}" method="post">
+        <table>
+            <tr>
+                <th>Full Name:</th>
+                <td><input type="text" th:field="*{fullName}" /></td>
+            </tr>
+            <tr>
+                <th>Age:</th>
+                <td><input type="number" th:field="*{age}" /></td>
+            </tr>
+            <tr>
+                <th>Phone Number:</th>
+                <td><input type="text" th:field="*{phoneNumber}" /></td>
+            </tr>
+            <tr>
+                <th>Address:</th>
+                <td><input type="text" th:field="*{address}" /></td>
+            </tr>
+            <tr>
+                <th>Favourite Book Authors:</th>
+                <td>
+                    <input type="text" id="favouriteAuthors" name="favouriteAuthors" placeholder="Enter favorite authors, separated by commas" th:value="${#strings.arrayJoin(userProfile.favouriteBookAuthors.![name], ',')}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Favourite Book Categories:</th>
+                <td>
+                    <div th:each="category : ${allCategories}" class="category-checkbox">
+                        <label>
+                            <input type="checkbox" name="categoryIds" th:value="${category.categoryId}" 
+                                   th:checked="${#lists.contains(userProfile.favouriteBookCategories, category)}"/>
+                            <span th:text="${category.name}"></span>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-green">Save Profile</button>
+    </form>
+    <a th:href="@{/user/main-menu}" class="btn btn-red">Cancel</a>
+</div>
+</body>
+</html>

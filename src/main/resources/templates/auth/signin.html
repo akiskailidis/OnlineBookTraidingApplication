@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* Container class for consistent page layout */
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h3 {
+            color: #00acc1;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .form-control {
+            background-color: #444;
+            border: 1px solid #666;
+            color: #ddd;
+            margin-bottom: 10px;
+            width: calc(100% - 22px);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00acc1, #00838f);
+        }
+
+        .btn-link {
+            background: linear-gradient(135deg, #ff9800, #e65100);
+            border-color: #ff9800;
+            width: calc(100% - 22px); /* Ensure the width of the link button matches the primary button */
+        }
+
+        .btn-link:hover {
+            background: linear-gradient(135deg, #e65100, #bf360c);
+        }
+
+        .alert {
+            margin-top: 20px;
+            color: #f00;
+        }
+    </style>
+
+    <title>Sign In</title>
+</head>
+
+<body>
+<div class="container">
+    <form th:action="@{/login}" method="post">
+        <h3>Sign In</h3>
+        <input type="text" th:name="username" placeholder="User Name" class="form-control" required/>
+        <input type="password" th:name="password" placeholder="Password" class="form-control" required/>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a th:href="@{/register}" class="btn btn-link">Register</a>
+
+        <div th:if="${param.error}" class="alert alert-danger">Login Error</div>
+        <div th:if="${param.logout}" class="alert alert-success">You have been logged out</div>
+    </form>
+</div>
+</body>
+</html>

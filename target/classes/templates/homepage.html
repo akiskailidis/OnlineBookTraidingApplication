@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* Container class for consistent page layout */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h2, h4 {
+            color: #00acc1;
+        }
+
+        hr {
+            border-top: 1px solid #444;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 150px;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #00acc1, #00838f);
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #ff9800, #e65100);
+        }
+
+        .btn-main-menu {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+    </style>
+
+    <title>Homepage</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Welcome to Homepage</h2>
+        
+        <hr>
+        
+        <div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+            <p class="text-center">
+                <a th:href="@{/login}" class="btn btn-login">Login</a>
+                <a th:href="@{/register}" class="btn btn-register">Register</a>
+            </p>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <h4>Logged in as: <span sec:authentication="name"></span></h4>
+            <h4>Has role: <span sec:authentication="authorities"></span></h4>
+            
+            <hr>
+            
+            <p sec:authorize="hasAuthority('USER')" class="text-center">
+                <a th:href="@{/user/main-menu}" class="btn btn-main-menu">User Main Menu</a>
+                <a th:href="@{/logout}" class="btn btn-logout">Logout</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

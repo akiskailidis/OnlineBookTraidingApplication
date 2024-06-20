@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Book Offer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        /* Container class for consistent page layout */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #00acc1;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            color: #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #444;
+            border: 1px solid #666;
+            border-radius: 4px;
+            color: #ddd;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 200px;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(135deg, #00acc1, #00838f);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00acc1, #00838f);
+        }
+
+        .btn-back {
+            background: #6c757d;
+        }
+
+        .btn-back:hover {
+            background: #5a6268;
+        }
+
+        .validation-message {
+            color: #ff6666;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Add New Book Offer</h1>
+    <form th:action="@{/user/book-offers/save}" method="post" onsubmit="return validateForm()">
+        <table>
+            <tr>
+                <th>Book Title:</th>
+                <td><input type="text" name="title" required /></td>
+            </tr>
+            <tr>
+                <th>Book Author:</th>
+                <td><input type="text" name="author" required /></td>
+            </tr>
+            <tr>
+                <th>Category:</th>
+                <td>
+                    <select name="categoryId" class="category-dropdown" required>
+                        <option value="">Select Category</option>
+                        <!-- Iterate over categories and populate options -->
+                        <option th:each="category : ${allCategories}" th:value="${category.categoryId}" th:text="${category.name}">Category Name</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="validation-message" id="validation-message" th:if="${param.error}">Please select a category.</div>
+    </form>
+    <a th:href="@{/book/offers}" class="btn btn-back">Back to My Book Offers</a>
+</div>
+
+<script>
+    function validateForm() {
+        var categoryDropdown = document.querySelector('.category-dropdown');
+        if (categoryDropdown.value === "") {
+            document.getElementById('validation-message').style.display = 'block';
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

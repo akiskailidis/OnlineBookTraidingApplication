@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+
+    <style>
+        /* Reset some basic elements */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        header {
+            background: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #00acc1;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 300;
+            color: #e0e0e0;
+        }
+
+        /* Main content styles */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #00acc1;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        /* Button styles */
+        .btn {
+            color: white;
+            border: none;
+            width: 200px;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(135deg, #00acc1, #00838f);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c2185b, #e91e63);
+        }
+
+        hr {
+            border-color: #444;
+        }
+
+        /* Footer styles */
+        footer {
+            background: #1e1e1e;
+            padding: 10px 0;
+            text-align: center;
+            border-top: 4px solid #00acc1;
+            color: #e0e0e0;
+            margin-top: 20px;
+        }
+
+        /* Responsive media queries */
+        @media (max-width: 768px) {
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+
+    <title>User Main-Menu</title>
+</head>
+
+<body>
+    <header>
+        <h1>Online Bookstore Application</h1>
+    </header>
+    <div class="container">
+        <h2>Welcome to User Main-Menu</h2>
+        <hr>
+        <h4>Logged in as: <span sec:authentication="name"></span></h4>
+        <hr>
+        <p>
+            <a th:href="@{/profile}" class="btn">Profile</a>
+            <a th:href="@{/book/offers}" class="btn">My Book Offers</a>
+            <a th:href="@{/book/requests}" class="btn">Show Book Requests</a>
+            <a th:href="@{/search}" class="btn">Search Book Offers</a>
+            <a th:href="@{/user/show-recommendations}" class="btn">View Recommendations</a>
+            <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+        </p>
+    </div>
+    <footer>
+        <p>&copy; 2024 OnlineBookstoreApplication. All rights reserved.</p>
+    </footer>
+</body>
+</html>
